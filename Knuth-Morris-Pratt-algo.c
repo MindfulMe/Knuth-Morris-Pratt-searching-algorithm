@@ -15,13 +15,13 @@ int* init_array(int size) {
 }
 
 int main(void) {
-  char* pattern = "abacab";
-  char* text = "bbacbabcbabcbabbabcbabcbacbbbacbacbacbacbacbabacab";
-
+  char* pattern = "ab";
+  char text[50];
+  gets(text);
   int match = kmp(text, pattern);
-
   printf("Match at: %d\n", match);
   system("pause");
+
   return 0;
 }
 
@@ -56,25 +56,3 @@ int kmp(char* t, char* p) {
   return -1;
 }
 
-void failure(char* p, int* f) {
-  f[0] = 0;
-  int i = 1;
-  int j = 0;
-
-  int m = strlen(p);
-
-  while (i < m) {
-    if (p[i] == p[j]) {
-      f[i] = j + 1; // j+1 matches up to the current character.
-      i += 1;
-      j += 1;
-    }
-    else if (j > 0) {
-      j = f[j - 1];
-    }
-    else {
-      f[i] = 0;
-      i += 1;
-    }
-  }
-}
